@@ -121,11 +121,16 @@ ORDER BY
     view_count DESC
 LIMIT 3;
 
+
+
+
 CREATE VIEW top3_epsode2 AS
 SELECT 
     ptt.title_name AS title,
     bp.season_no AS season_no,
-    COUNT(vl.id) as view_count 
+    bp.episode_no AS episode_no,
+    COUNT(vl.id) as view_count,
+    ptt.title_description AS description
 FROM 
     view_logs AS vl
 JOIN
@@ -134,10 +139,14 @@ JOIN
     program_to_title AS ptt ON bp.title_id = ptt.title_id
 GROUP BY 
     ptt.title_name,
-    bp.season_no
+    ptt.title_description,
+    bp.season_no,
+    bp.episode_no
 ORDER BY 
     view_count DESC
 LIMIT 3;
+
+
 
 CREATE VIEW today_programs AS 
 SELECT 
