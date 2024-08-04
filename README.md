@@ -264,7 +264,7 @@ CREATE TABLE genres (
 <br>
 
 
-テーブル：channels_genres(チャンネルとジャンつを紐付ける many to many)
+テーブル：channels_genres(チャンネルとジャンルを紐付ける many to many)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -293,7 +293,7 @@ CREATE TABLE channels_genres (
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
-|id|INT|NOT NULL|PRIMARY KEY|||
+|id|INT|NOT NULL|PRIMARY KEY||TRUE|
 |start_time|TIME|NOT NULL||||
 |end_time|TIME|NOT NULL||||
 |description|TEXT|NOT NULL||||
