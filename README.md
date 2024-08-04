@@ -187,7 +187,7 @@ ORDER BY
 以下　テーブル定義
 <br>
 
-テーブル：users
+テーブル：users(ユーザーのマスタ)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -215,7 +215,7 @@ CREATE TABLE users (
 <br>
 <br>
 
-テーブル：channels
+テーブル：channels(チャンネルのマスタ)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -243,7 +243,7 @@ CREATE TABLE channels (
 <br>
 
 
-テーブル：genres
+テーブル：genres(ジャンルのマスタ)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -264,7 +264,7 @@ CREATE TABLE genres (
 <br>
 
 
-テーブル：channels_genres
+テーブル：channels_genres(チャンネルとジャンつを紐付ける many to many)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -289,7 +289,7 @@ CREATE TABLE channels_genres (
 <br>
 <br>
 
-テーブル：broadcast_slots
+テーブル：broadcast_slots(配信時間のマスタ)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -316,7 +316,7 @@ CREATE TABLE broadcast_slots (
 <br>
 
 
-テーブル：titles
+テーブル：titles(作品マスタ)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -340,7 +340,7 @@ CREATE TABLE titles (
 <br>
 <br>
 
-テーブル：titles_genres
+テーブル：titles_genres(作品に付随したジャンルをmany to manyで表現)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -369,7 +369,7 @@ CREATE TABLE titles_genres (
 <br>
 <br>
 
-テーブル：programs
+テーブル：programs(配信番組のマスター)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -399,7 +399,7 @@ CREATE TABLE programs (
 <br>
 <br>
 
-テーブル：broadcast_programs
+テーブル：broadcast_programs(配信番組表)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -434,7 +434,7 @@ CREATE TABLE broadcast_programs (
 <br>
 <br>
 
-テーブル：view_logs
+テーブル：view_logs(視聴履歴)
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -463,6 +463,10 @@ CREATE TABLE view_logs (
 <br>
 <br>
 <br>
+
+以下　insert文のサンプル
+***
+
 
 
 ```
