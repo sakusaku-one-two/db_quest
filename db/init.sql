@@ -167,6 +167,7 @@ ORDER BY
 
 CREATE VIEW dorama_programs AS
 SELECT 
+    bp.broadcast_date AS broadcast_date,
     c.name AS channel,
     ptt.title_name AS title, 
     bs.start_time AS start_time,
@@ -188,6 +189,7 @@ WHERE
     bp.broadcast_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
     AND c.id = 11
 ORDER BY 
+    bp.broadcast_date ASC,
     bs.start_time ASC; 
 
 -- usersテーブルにデータを挿入
