@@ -26,7 +26,7 @@ docker-compose up -d
 2. mysqlのコマンドラインに入る
 
 ```
-docker exec -it quest_db mysql -u root -p
+docker exec -it db_quest mysql -u root -p
 ```
 <br>
 3. Enter:passwordの入力
