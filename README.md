@@ -13,6 +13,11 @@ dockerでmysqlを実行できます。（以下実行手順）
 <br>
 1.ディレクトリを移動して、dockerを立ち上げる
 
+<br>
+注：）各テーブルと初期値・viewはinit.dbで定義済みです。　
+<br>
+
+
 ```
 cd db_quest
 docker-compose up -d
@@ -33,7 +38,7 @@ root
 4.databaseの中に入る
 
 ```
-USE quset_db
+USE quest_db;
 ```
 <br>
 <br>
@@ -41,7 +46,7 @@ USE quset_db
 ## よく見られているエピソードトップ３を表示(viewで定義済み)
 
 ```
-SELECT * FROM top3_epsode
+SELECT * FROM top3_epsode;
 ```
 <br>
 
@@ -70,7 +75,7 @@ LIMIT 3;
 
 
 ```
-SELECT * FROM top3_epsode2
+SELECT * FROM top3_epsode2;
 ```
 
 <br>
@@ -101,7 +106,6 @@ LIMIT 3;
 ```
 
 <br>
-注：）各テーブルと初期値・viewはinit.dbで定義済みです。
 <br>
 <br>
 
@@ -180,6 +184,24 @@ ORDER BY
 
 <br>
 <br>
+<br>
+
+
+***
+
+<br>
+
+## mysql> 終了させるコマンド
+```
+exit
+```
+
+## dockerを終了させるコマンド
+```
+docker-compose down
+
+```
+
 <br>
 
 ***
@@ -419,13 +441,14 @@ CREATE TABLE programs (
 ```
 CREATE TABLE broadcast_programs (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    program_id INT NOT NULL,
+    title_id INT NOT NULL,
+    season_no INT NOT NULL,
+    episode_no INT NOT NULL,
     channel_id INT NOT NULL,
     slot_id INT NOT NULL,
-    broadcast_date DATE NOT NULL CURRENT_DATETIME,
-    FOREIGN KEY program_id REFERENCES programs(id),
-    FOREIGN KEY channel_id REFERENCES channels(id),
-    FOREIGN KEY slot_id REFERENCES slots(id)
+    broadcast_date DATE NOT NULL,
+    FOREIGN KEY(title_id, season_no, episode_no) REFERENCES programs(title_id, season_no, episode_no),
+    FOREIGN KEY(channel_id) REFERENCES channels(id)
 );
 ```
 
