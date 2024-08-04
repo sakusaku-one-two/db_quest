@@ -1,5 +1,47 @@
 # db_quest
 
+<br>
+dockerでmysqlを実行できます。（以下実行手順）
+<br>
+1.ディレクトリを移動して、dockerを立ち上げる
+
+```
+cd db_quest
+docker-compose up -d
+```
+<br>
+2. mysqlのコマンドラインに入る
+
+```
+docker exec -it quest_db mysql -u root -p
+```
+<br>
+3. Enter:passwordの入力　=>　root
+<br>
+4.databaseの中に入る
+
+```
+USE quset_db
+```
+<br>
+<br>
+
+## よく見られているエピソードトップ３を表示
+
+```
+SELECT * FROM top3_epsode
+```
+<br>
+
+##　よく見られているエピソードトップ３の詳細を表示
+
+
+```
+SELECT * FROM top3_epsode2
+```
+
+
+
 
 
 
@@ -16,7 +58,7 @@
 
 
 <br>
-***
+<br>
 <br>
 
 テーブル：channels
@@ -26,6 +68,11 @@
 |id|INT||NOT NULL|PRIMARY KEY|YES|YES|
 |name|varchar(50)|NOT NULL||||
 |description|TEXT|||||
+
+<br>
+<br>
+<br>
+
 
 ```
 
@@ -39,6 +86,10 @@ CREATE TABLE channels (
 
 
 ```
+<br>
+<br>
+<br>
+
 
 テーブル：genres
 
@@ -55,14 +106,23 @@ CREATE TABLE genres (
     name VARCHAR(50) NOT NULL,
     description TEXT NOT NULL
 );
-
 ```
+<br>
+<br>
+<br>
+
+
 テーブル：channels_genres
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
 |channel_id|INT|NOT NULL|PRIMARY KEY FOREGIN KEY|||
 |genre_id|INT|NOT NULL|PRIMARY KEY FOREIGN KEY|||
+
+<br>
+<br>
+<br>
+
 
 ```
 CREATE TABLE channels_genres (
@@ -73,6 +133,9 @@ CREATE TABLE channels_genres (
     FOREIGN KEY (genre_id) REFERENCES genres(id)
 );
 ```
+<br>
+<br>
+<br>
 
 テーブル：broadcast_slots
 
@@ -83,6 +146,11 @@ CREATE TABLE channels_genres (
 |end_time|TIME|NOT NULL||||
 |description|TEXT|NOT NULL||||
 
+<br>
+<br>
+<br>
+
+
 ```
 CREATE TABLE broadcast_slots (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -91,6 +159,9 @@ CREATE TABLE broadcast_slots (
     description TEXT NOT NULL
 );
 ```
+<br>
+<br>
+<br>
 
 
 テーブル：titles
@@ -99,9 +170,11 @@ CREATE TABLE broadcast_slots (
 | ---- | ---- | ---- | ---- | ---- | ---- |
 |id|INT|NOT NULL|PRIMARY KEY||TRUE|
 |name|VARCHAR(50)|NOT NULL||||
-|end_time|TIME|NOT NULL||||
 |description|TEXT|NOT NULL||||
 
+<br>
+<br>
+<br>
 
 ```
 CREATE TABLE titles (
@@ -111,12 +184,21 @@ CREATE TABLE titles (
 );
 ```
 
+<br>
+<br>
+<br>
+
 テーブル：titles_genres
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
 |title_id|INT|NOT NULL|PRIMARY KEY FOREIGN KEY|||
 |genre_id|INT|NOT NULL|PRIMARY KEY FOREIGN KEY|||
+
+
+<br>
+<br>
+<br>
 
 ```
 /*
@@ -130,6 +212,11 @@ CREATE TABLE titles_genres (
     FOREIGN KEY (genre_id) REFERENCES genres(id)
 );
 ```
+
+<br>
+<br>
+<br>
+
 テーブル：programs
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
@@ -138,6 +225,11 @@ CREATE TABLE titles_genres (
 |season_no|INT|NOT NULL|PRIMARY KEY FOREGIN KEY|1|
 |epsode_no|INT|NOT NULL|PRIMARY KEY FOREGIN KEY|1|
 |description|TEXT|||||
+
+
+<br>
+<br>
+<br>
 
 ```
 CREATE TABLE programs (
@@ -149,14 +241,28 @@ CREATE TABLE programs (
     FOREIGN KEY (title_id) REFERENCES titles(id)
 );
 ```
+
+
+<br>
+<br>
+<br>
+
 テーブル：broadcast_programs
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
 |id|INT||PRIMARY KEY||AUTO_INCREMENT|
-|program_id|INT|NOT NULL||||
-|channel_id|INT|NOT NULL||||
-|broadcast_date|DATE|NOT NULL||||
+|title_id|INT|NOT NULL|FOREGIN KEY|||
+|season_no|INT|NOT NULL|FOREGIN KEY|||
+|episode_no|INT|NOT NULL|FOREGIN KEY|||
+|channel_id|INT|NOT NULL|FOREGIN KEY|||
+|slot_id|INT|NOT NULL|FOREGIN KEY|||
+|broadcast_date|DATE|NOT NULL||CURRENT_DATETIME||
+
+
+<br>
+<br>
+<br>
 
 ```
 CREATE TABLE broadcast_programs (
@@ -164,9 +270,18 @@ CREATE TABLE broadcast_programs (
     program_id INT NOT NULL,
     channel_id INT NOT NULL,
     slot_id INT NOT NULL,
-    broadcast_date DATE NOT NULL
+    broadcast_date DATE NOT NULL CURRENT_DATETIME,
+    FOREIGN KEY program_id REFERENCES programs(id),
+    FOREIGN KEY channel_id REFERENCES channels(id),
+    FOREIGN KEY slot_id REFERENCES slots(id)
 );
 ```
+
+
+<br>
+<br>
+<br>
+
 テーブル：view_logs
 
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
@@ -175,6 +290,11 @@ CREATE TABLE broadcast_programs (
 |broadcast_program_id|INT|NOT NULL|FOREGIN KEY|||
 |user_id|INT|NOT NULL|FOREGIN KEY|||
 |created_at|DATETIME|NOT NULL||CURRENT_TIMESTAMP||
+
+
+<br>
+<br>
+<br>
 
 ```
 CREATE TABLE view_logs (
@@ -186,9 +306,11 @@ CREATE TABLE view_logs (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-
 ```
 
+<br>
+<br>
+<br>
 
 
 ```

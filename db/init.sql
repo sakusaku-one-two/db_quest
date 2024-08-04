@@ -88,7 +88,8 @@ CREATE TABLE broadcast_programs (
     channel_id INT NOT NULL,
     slot_id INT NOT NULL,
     broadcast_date DATE NOT NULL,
-    FOREIGN KEY(title_id, season_no, episode_no) REFERENCES programs(title_id, season_no, episode_no)
+    FOREIGN KEY(title_id, season_no, episode_no) REFERENCES programs(title_id, season_no, episode_no),
+    FOREIGN KEY(channel_id) REFERENCES channels(id)
 );
 
 
@@ -104,7 +105,7 @@ CREATE TABLE view_logs (
 
 
 
-CREATE VIEW top3_programs AS 
+CREATE VIEW top3_epsode AS 
 SELECT 
     ptt.title_name AS title,
     COUNT(vl.id) AS view_count 
@@ -119,6 +120,25 @@ GROUP BY
 ORDER BY 
     view_count DESC
 LIMIT 3;
+
+CREATE VIEW top3_epsode2 AS
+SELECT 
+    ptt.title_name AS title,
+    bp.season_no AS season_no,
+    COUNT(vl.id) as view_count 
+FROM 
+    view_logs AS vl
+JOIN
+    broadcast_programs AS bp ON bp.id = vl.broadcast_program_id
+JOIN
+    program_to_title AS ptt ON bp.title_id = ptt.title_id
+GROUP BY 
+    ptt.title_name,
+    bp.season_no
+ORDER BY 
+    view_count DESC
+LIMIT 3;
+
 
 
 
